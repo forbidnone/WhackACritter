@@ -1,10 +1,22 @@
 //---------------------------------------------------------------------------------------
-// iIncluded Libraries
+// Included Libraries
 //---------------------------------------------------------------------------------------
 #include <SFML/Graphics.hpp>
-#include <SFML/Audio.hpp>
-#include <string>
+//---------------------------------------------------------------------------------------
 // End Libraries
+//---------------------------------------------------------------------------------------
+
+
+//---------------------------------------------------------------------------------------
+// Project Includes
+//---------------------------------------------------------------------------------------
+
+#include "Critter.h"
+
+//---------------------------------------------------------------------------------------
+
+
+//---------------------------------------------------------------------------------------
 
 
 int main()
@@ -25,6 +37,17 @@ int main()
 
 	//Timer functionallity
 	sf::Clock gameClock;
+
+	// Create an instance of our Critter class
+	Critter hippo;
+
+	// TEMP
+
+	sf::Sprite m_sprite;
+	sf::Texture m_texture;
+	m_texture.loadFromFile("graphics/hippo.png");
+	m_sprite.setTexture(m_texture);
+	m_sprite.setPosition(300, 300);
 
 
 	//----------------------------------------------------------------------------------
@@ -50,13 +73,13 @@ int main()
 		//-------------------------------------------------------------------------------
 
 
-		sf::Event event;
+		sf::Event gameEvent;
 
-		while (gameWindow.pollEvent(event))
+		while (gameWindow.pollEvent(gameEvent))
 		{
 
 
-			if (event.type == sf::Event::Closed)
+			if (gameEvent.type == sf::Event::Closed)
 			{
 				gameWindow.close();
 			}// end if(closed)
@@ -79,7 +102,7 @@ int main()
 
 
 
-
+		sf::Time frameTime = gameClock.restart();
 
 
 
@@ -103,12 +126,16 @@ int main()
 
 		// Draw Everything
 
+		gameWindow.draw(m_sprite);
+		hippo.Draw(gameWindow);
 
 
 
 
 		// Display the window contents on the screen
 		gameWindow.display();
+
+
 
 
 		//-------------------------------------------------------------------------------
