@@ -46,11 +46,14 @@ int main()
 
 
 	// Create an instance of our Critter class
-	Critter hippo;
-	hippo.Setup("graphics/hippo.png", 10);
+	const int NUM_CRITTERS = 5;
+	Critter critters[NUM_CRITTERS];
 
-	Critter rabbit;
-	rabbit.Setup("graphics/rabbit.png", 2);
+	critters[0].Setup("graphics/hippo.png", 10);
+	critters[1].Setup("graphics/rabbit.png", 2);
+	critters[2].Setup("graphics/frog.png", 1);
+	critters[3].Setup("graphics/snake.png", 3);
+	critters[4].Setup("graphics/walrus.png", 5);
 
 
 	//Game Font
@@ -96,8 +99,15 @@ int main()
 		{
 
 			// Process input on critters
-			hippo.Input(gameEvent);
-			rabbit.Input(gameEvent);
+
+			for (int i = 0; i < NUM_CRITTERS; ++i)
+			{
+
+				critters[i].Input(gameEvent);
+
+			}
+
+
 
 
 			if (gameEvent.type == sf::Event::Closed)
@@ -127,14 +137,15 @@ int main()
 
 
 		//See if there is any pending score
-		score += hippo.GetPendingScore();
-		hippo.ClearPendingScore();
+		for (int i = 0; i < NUM_CRITTERS; ++i)
+		{
 
-		score += rabbit.GetPendingScore();
-		rabbit.ClearPendingScore();
-
+			score += critters[i].GetPendingScore();
+			critters[i].ClearPendingScore();
+		
+		}
+		
 		scoreText.setString("Score: " + std::to_string(score));
-
 
 		//-------------------------------------------------------------------------------
 		// End Update
@@ -155,8 +166,13 @@ int main()
 
 		// Draw Everything
 
-		hippo.Draw(gameWindow);
-		rabbit.Draw(gameWindow);
+		for (int i = 0; i < NUM_CRITTERS; ++i)
+		{
+
+			critters[i].Draw(gameWindow);
+
+		}
+
 		gameWindow.draw(scoreText);
 
 
