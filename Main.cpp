@@ -2,6 +2,8 @@
 // Included Libraries
 //---------------------------------------------------------------------------------------
 #include <SFML/Graphics.hpp>
+#include <cstdlib> // Gives access to seed function
+#include <ctime> // Gives access to time function
 //---------------------------------------------------------------------------------------
 // End Libraries
 //---------------------------------------------------------------------------------------
@@ -14,8 +16,7 @@
 #include "Critter.h"
 
 //---------------------------------------------------------------------------------------
-
-
+// End Project Includes
 //---------------------------------------------------------------------------------------
 
 
@@ -38,16 +39,13 @@ int main()
 	//Timer functionallity
 	sf::Clock gameClock;
 
+
+	// Seed out random number generator
+	srand(time(NULL));
+
+
 	// Create an instance of our Critter class
 	Critter hippo;
-
-	// TEMP
-
-	sf::Sprite m_sprite;
-	sf::Texture m_texture;
-	m_texture.loadFromFile("graphics/hippo.png");
-	m_sprite.setTexture(m_texture);
-	m_sprite.setPosition(300, 300);
 
 
 	//----------------------------------------------------------------------------------
@@ -78,6 +76,8 @@ int main()
 		while (gameWindow.pollEvent(gameEvent))
 		{
 
+			// Process input on critters
+			hippo.Input(gameEvent);
 
 			if (gameEvent.type == sf::Event::Closed)
 			{
@@ -126,7 +126,6 @@ int main()
 
 		// Draw Everything
 
-		gameWindow.draw(m_sprite);
 		hippo.Draw(gameWindow);
 
 
