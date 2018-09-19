@@ -47,6 +47,10 @@ int main()
 
 	// Create an instance of our Critter class
 	Critter hippo;
+	hippo.Setup("graphics/hippo.png", 10);
+
+	Critter rabbit;
+	rabbit.Setup("graphics/rabbit.png", 2);
 
 
 	//Game Font
@@ -93,6 +97,8 @@ int main()
 
 			// Process input on critters
 			hippo.Input(gameEvent);
+			rabbit.Input(gameEvent);
+
 
 			if (gameEvent.type == sf::Event::Closed)
 			{
@@ -123,6 +129,10 @@ int main()
 		//See if there is any pending score
 		score += hippo.GetPendingScore();
 		hippo.ClearPendingScore();
+
+		score += rabbit.GetPendingScore();
+		rabbit.ClearPendingScore();
+
 		scoreText.setString("Score: " + std::to_string(score));
 
 
@@ -146,6 +156,7 @@ int main()
 		// Draw Everything
 
 		hippo.Draw(gameWindow);
+		rabbit.Draw(gameWindow);
 		gameWindow.draw(scoreText);
 
 
